@@ -39,6 +39,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
 
+	implementation ("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+	implementation ("org.springframework.boot:spring-boot-starter-validation")
+
 
 
 	compileOnly("org.projectlombok:lombok")
