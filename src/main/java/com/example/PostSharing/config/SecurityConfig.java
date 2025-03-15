@@ -33,7 +33,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/admin/signup","/api/admin/login").permitAll()// Ro‘yxatdan o‘tish ochiq
+                        .requestMatchers("/api/admin/signup","/api/admin/login","/api/enrollments/register","/api/enrollments/{id}/status").permitAll()// Ro‘yxatdan o‘tish ochiq
                         .requestMatchers("/admin/**").authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
