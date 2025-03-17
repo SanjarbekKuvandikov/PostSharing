@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -32,7 +34,7 @@ public class TeacherEntity {
     private String certificates;
 
     @NotBlank(message = "Phone number cannot be empty")
-    @Pattern(regexp = "\\+998",message = "Phone number must be in the format +9989XXXXXXXX")
+    @Pattern(regexp = "\\+998\\d{9}",message = "Phone number must be in the format +9989XXXXXXXX")
     private String phoneNumber;
 
     @NotBlank(message = "PhotoURL cannot be empty")
@@ -40,5 +42,8 @@ public class TeacherEntity {
 
     @NotBlank(message = "VideoURL cannot be empty")
     private String videoURL;
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private List<GroupsEntity> groupsEntities;
 
 }
