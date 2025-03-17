@@ -1,7 +1,6 @@
 package com.example.PostSharing.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +23,6 @@ public class TeacherDTO {
     private String certificates;
 
     @NotBlank(message = "Phone number cannot be empty")
-    @Pattern(regexp = "\\+998",message = "Phone number must be in the format +9989XXXXXXXX")
     private String phoneNumber;
 
     @NotBlank(message = "PhotoURL cannot be empty")
