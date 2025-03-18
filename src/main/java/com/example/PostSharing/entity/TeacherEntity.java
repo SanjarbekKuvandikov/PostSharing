@@ -46,4 +46,7 @@ public class TeacherEntity {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<GroupsEntity> groupsEntities;
 
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
+    private List<StudentEntity> studentEntities;
+
 }
