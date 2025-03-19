@@ -40,4 +40,7 @@ public class GroupsEntity {
 
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL)
     List<StudentEntity> studentEntities;
+
+    @NotNull(message = "Group fee cannot be empty")
+    private Double fee;
 }
