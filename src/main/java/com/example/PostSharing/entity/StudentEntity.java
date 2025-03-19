@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -37,4 +39,7 @@ public class StudentEntity {
     @ManyToOne
     @JoinColumn(name = "group_id",nullable = false)
     private GroupsEntity group;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+    private List<PaymentEntity> payments;
 }
