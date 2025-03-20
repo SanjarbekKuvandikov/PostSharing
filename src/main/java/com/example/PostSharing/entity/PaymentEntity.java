@@ -59,16 +59,19 @@ public class PaymentEntity {
     }
 
     public void updatePaymentStatus(){
-        this.status = this.calculatePaymentStatus();
+        calculatePaymentStatus();
     }
 
-    public PaymentStatus calculatePaymentStatus(){
+    public void calculatePaymentStatus(){
         if (this.paidAmount == null || this.paidAmount == 0){
-            return PaymentStatus.UNPAID;
+            this.status = com.example.PostSharing.data.PaymentStatus.UNPAID;
         }else if (this.paidAmount.equals(this.amount)){
-            return PaymentStatus.PAID;
+            this.status = com.example.PostSharing.data.PaymentStatus.PAID;
+        }else if (this.paidAmount < this.amount){
+            this.status = com.example.PostSharing.data.PaymentStatus.PARTIALLY_PAID;
+        }else {
+            throw new RuntimeException("To`langan summa to`lov summasidan katta");
         }
-        return PaymentStatus.PARTIALLY_PAID;
     }
 
     @PrePersist
