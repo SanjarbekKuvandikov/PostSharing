@@ -42,4 +42,7 @@ public class StudentEntity {
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
     private List<PaymentEntity> payments;
+
+    @OneToOne(mappedBy = "student",cascade = CascadeType.ALL)
+    private AchievementEntity achievementEntity;
 }
