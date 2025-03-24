@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginRequest {
+public class LoginDTO {
     @NotBlank(message = "Username cannot be empty")
     private String username;
 

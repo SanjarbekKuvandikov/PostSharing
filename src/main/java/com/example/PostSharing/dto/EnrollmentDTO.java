@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EnrollmentRequest {
+public class EnrollmentDTO {
     @NotBlank(message = "Name cannot be empty")
     private String name;
 
