@@ -1,11 +1,7 @@
 package com.example.PostSharing.controller;
 
-import com.example.PostSharing.data.Branch;
-import com.example.PostSharing.data.Direction;
-import com.example.PostSharing.data.Status;
-import com.example.PostSharing.dto.EnrollmentRequest;
+import com.example.PostSharing.dto.EnrollmentDTO;
 import com.example.PostSharing.entity.EnrollmentEntity;
-import com.example.PostSharing.repository.EnrollmentRepository;
 import com.example.PostSharing.service.EnrollmentService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +14,14 @@ import java.util.Optional;
 @RequestMapping("api/enrollments")
 public class EnrollmentController {
     private final EnrollmentService enrollmentService;
-    private final EnrollmentRepository enrollmentRepository;
 
-    public EnrollmentController(EnrollmentService enrollmentService, EnrollmentRepository enrollmentRepository) {
+    public EnrollmentController(EnrollmentService enrollmentService) {
         this.enrollmentService = enrollmentService;
-        this.enrollmentRepository = enrollmentRepository;
     }
 
     @PostMapping("register")
-    public ResponseEntity<?> register(@Valid @RequestBody EnrollmentRequest request) {
-
-        Direction direction;
-        Branch branch;
-        try {
-            direction = Direction.valueOf(request.getDirection().toUpperCase());
-            branch = Branch.valueOf(request.getBranch().toUpperCase());
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body("Invalid direction or branch");
-        }
-        EnrollmentEntity entity = new EnrollmentEntity();
-        entity.setName(request.getName());
-        entity.setPhoneNumber(request.getPhoneNumber());
-        entity.setBranch(branch);
-        entity.setDirection(direction);
-        entity.setStatus(request.getStatus());
-
-        enrollmentRepository.save(entity);
+    public ResponseEntity<?> register(@Valid @RequestBody EnrollmentDTO enrollmentDTO) {
+        enrollmentService.addEnrollment(enrollmentDTO);
         return ResponseEntity.ok("Successfully registered");
     }
 
@@ -54,17 +32,7 @@ public class EnrollmentController {
 
     @PutMapping("/{id}/status")
     public ResponseEntity<String> updateStatus(@PathVariable("id") Long id, @RequestParam() String statusString) {
-        Optional<EnrollmentEntity> enrollmentOpt = enrollmentRepository.findById(id);
-        if (enrollmentOpt.isEmpty()) {
-            return ResponseEntity.badRequest().body("Enrollment not found");
-        }
-
-        try {
-           Status status = Status.valueOf(statusString.toUpperCase());
-            enrollmentService.updateStatus(id,status);
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body("Error while updating status");
-        }
+        enrollmentService.updateStatus(id, statusString);
         return ResponseEntity.ok("Successfully updated");
     }
 
